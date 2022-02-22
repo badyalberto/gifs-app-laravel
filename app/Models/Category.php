@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gif extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'url',
-        'user_id',
-        'category_id'
+        'name',
     ];
-
-
-
 }

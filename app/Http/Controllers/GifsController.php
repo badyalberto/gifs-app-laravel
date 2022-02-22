@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Gif;
 use Illuminate\Http\Request;
 
@@ -10,18 +11,20 @@ class GifsController extends Controller
     public function index()
     {
         $gifs = Gif::all();
-        return view('welcome',['gifs' => $gifs]);
+        $categories = Category::all();
+        return view('welcome',['gifs' => $gifs, 'categories' => $categories]);
     }
 
     public function upload()
     {
-        return view('upload');
+        $categories = Category::all();
+        return view('upload',[ 'categories' => $categories]);
     }
 
     public function store(Request $request)
     {
         $input = $request->all();
         Gif::create($input);
-        return redirect('/')->with('flash_message', 'Gif Addedd!');
+        return redirect('/')->with('success', 'Gif Added!');
     }
 }

@@ -3,11 +3,11 @@
 @section('content')
     <div>
         <div class="flex mb-4">
-        @foreach($categories as $category)
-            <a class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mx-2" href="{{ url('categories/?category='.$category->id) }}">
-                {{ $category->name }}
-            </a>
-        @endforeach
+            @foreach($categories as $category)
+                <a class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mx-2" href="{{ url('categories/?category='.$category->id) }}">
+                    {{ $category->name }}
+                </a>
+            @endforeach
         </div>
         <div class="flex items-center justify-center mb-3">
             <div class="flex border-2 rounded w-full">
@@ -31,7 +31,7 @@
         @endif
         <div class="grid gap-4 grid-cols-3 grid-rows-3">
 
-          @foreach($gifs as $gif)
+            @foreach($gifs as $gif)
                 <img class="image-gif hover:opacity-80 cursor-pointer" alt="Responsive image" src="{{$gif->url}}" onclick="copyClipboard(event.target.src)"/>
             @endforeach
         </div>

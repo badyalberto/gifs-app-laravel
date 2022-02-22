@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('gifs', function (Blueprint $table) {
             $table->id();
             $table->string('url')->require();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
