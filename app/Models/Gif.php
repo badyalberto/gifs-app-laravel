@@ -10,11 +10,11 @@ class Gif extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'url',
         'user_id',
         'category_id'
     ];
-
 
 
 }

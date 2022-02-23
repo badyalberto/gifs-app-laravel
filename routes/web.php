@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/',[GifsController::class,'index']);
 Route::get('/categories',[CategoryController::class,'filter']);
+Route::get('/search',[GifsController::class,'search']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -18,7 +18,7 @@ class CategoryController extends Controller
             }
 
             $gifs = Gif::where('category_id',$_GET['category'])->get();
-            return view('category-gifs',['categories' => $categories,'gifs' => $gifs]);
+            return view('welcome',['categories' => $categories,'gifs' => $gifs]);
         }
 
         return redirect('/');

@@ -24,66 +24,83 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="bg-black">
-    <div id="app" class="max-w-5xl m-auto">
+<div id="app" class="md:max-w-5xl m-auto max-w-screen-sm">
+    <div class="py-5">
         <a class="navbar-brand text-purple-500" href="{{ url('/') }}">
-            <span class="text-3d">Giphy</span>
+            <span class="text-3d text-9xl">Giphy</span>
         </a>
-        <nav class="navbar navbar-expand-md navbar-light bg-black shadow-sm">
-            <div class="container">
+    </div>
+    <nav class="navbar navbar-expand-md navbar-light bg-black shadow-sm">
+        <div class="md:container">
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <button class="navbar-toggler bg-purple-500 mb-1" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon bg-purple-500 text-white"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav me-auto d-none">
 
-                    </ul>
+                </ul>
+                @if(isset($categories))
+                    <div class="flex flex-col md:flex-row">
+                        @foreach($categories as $category)
+                            <a class="md:mt-1 md:bg-purple-500 md:hover:bg-purple-700 text-white font-bold md:py-2 md:px-4 rounded md:mx-2 md:text-center"
+                               href="{{ url('categories/?category='.$category->id) }}">
+                                {{ $category->name }}
+                            </a>
+                        @endforeach
+                    </div>
+            @endif
+            <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ms-auto text-white">
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link text-white font-extrabold uppercase"
+                                   href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @endif
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto text-white">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link text-white font-extrabold uppercase"
+                                   href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white font-extrabold uppercase"
+                               href="#" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item font-extrabold uppercase" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <main class="py-4">
-            @include('flash-message')
-            @yield('content')
-        </main>
-    </div>
+    <main class="py-4">
+        @include('flash-message')
+        @yield('content')
+    </main>
+</div>
 </body>
 </html>
