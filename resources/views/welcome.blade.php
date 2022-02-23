@@ -22,10 +22,14 @@
         @if(count($gifs) == 0)
             <div class="text-white text-center font-bold pt-3">There are no gifs in this category.</div>
         @endif
-        <div class="grid gap-4 grid-cols-3 grid-rows-3">
+        <div class="grid gap-3 grid-cols-3 grid-rows-3 md:grid-cols-4 md:grid-rows-4">
 
           @foreach($gifs as $gif)
-                <img class="image-gif hover:opacity-80 cursor-pointer" alt="Responsive image" src="{{$gif->url}}" onclick="copyClipboard(event.target.src)"/>
+              @if($gif->url === NULL)
+                    <img class="image-gif hover:opacity-80 cursor-pointer" alt="Responsive image" src="{{'uploads/'.$gif->file}}" onclick="copyClipboard(event.target.src)"/>
+                @else
+                    <img class="image-gif hover:opacity-80 cursor-pointer" alt="Responsive image" src="{{$gif->url}}" onclick="copyClipboard(event.target.src)"/>
+                @endif
             @endforeach
         </div>
     </div>

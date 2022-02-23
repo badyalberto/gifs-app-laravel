@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" type="module"></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
 
 
@@ -24,14 +24,14 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="bg-black">
-<div id="app" class="md:max-w-5xl m-auto max-w-screen-sm">
-    <div class="py-5">
+<div id="app" class="w-11/12 md:w-9/12 md:mx-0 m-auto">
+    <div class="py-5" id="title">
         <a class="navbar-brand text-purple-500" href="{{ url('/') }}">
-            <span class="text-3d text-9xl">Giphy</span>
+            <span class="text-3d text-6xl md:text-9xl">Giphy</span>
         </a>
     </div>
     <nav class="navbar navbar-expand-md navbar-light bg-black shadow-sm">
-        <div class="md:container">
+        <div class="container">
 
             <button class="navbar-toggler bg-purple-500 mb-1" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -59,15 +59,15 @@
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link text-white font-extrabold uppercase"
+                            <li class="nav-item hover:bg-purple-500 hover:rounded-3xl">
+                                <a class="nav-link text-white font-extrabold uppercase md:py-2 md:px-4"
                                    href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link text-white font-extrabold uppercase"
+                            <li class="nav-item hover:bg-purple-500 hover:rounded-3xl">
+                                <a class="nav-link text-white font-extrabold uppercase md:py-2 md:px-4"
                                    href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif

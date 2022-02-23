@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Gif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GifsController extends Controller
 {
@@ -23,14 +24,26 @@ class GifsController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
+        $inputs = $request->all();
+
+        //dd($request->hasFile('file'));
+
+        if($request->hasFile('file')){
+            $destination_path = 'uploads';
+            $gif = $request->file('file');
+            $gif_name = time().$gif->getClientOriginalName();
+            $path = $request->file('file')->move($destination_path,$gif_name);
+            $inputs['file'] = $gif_name;
+            //Storage::disk('local')->put($inputs['file'], 'Contents');
+        }
+
         $regex = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
 
         $request->validate([
-            'url' => 'required|regex:'.$regex,
+            'url' => 'regex:'.$regex,
         ]);
 
-        Gif::create($input);
+        Gif::create($inputs);
         return redirect('/')->with('success', 'Gif Added!');
     }
 

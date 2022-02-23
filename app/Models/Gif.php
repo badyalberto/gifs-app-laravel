@@ -12,6 +12,7 @@ class Gif extends Model
     protected $fillable = [
         'name',
         'url',
+        'file',
         'user_id',
         'category_id'
     ];
